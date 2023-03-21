@@ -1,0 +1,19 @@
+# Ignore all
+*
+
+# Unignore all with extensions
+!*.*
+!**/Makefile
+!**/Dockerfile
+
+# Unignore all dirs
+!*/
+!api
+
+
+**/logs
+.vscode
+.idea
+.fleet
+# 证书
+pem
