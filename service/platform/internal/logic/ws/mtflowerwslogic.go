@@ -27,6 +27,7 @@ func NewMtflowerWsLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Mtflow
 }
 
 func (l *MtflowerWsLogic) MtflowerWs(conn *websocket.Conn, token string) {
+	println("register ready")
 	client := hub.NewClient(l.svcCtx.WsHub, conn, token)
 	println("register" + client.Token)
 	client.Hub.Register <- client
