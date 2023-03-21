@@ -1,0 +1,9 @@
+syntax = "proto3";
+// goctl rpc proto -proto grpcerrordetails.proto   -dir . 
+
+package grpcerrordetails;
+
+message GrpcErrorDetails {
+  int64 code=1;
+  string desc=2;
+}

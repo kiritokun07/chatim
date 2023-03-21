@@ -1,0 +1,31 @@
+syntax = "v1"
+
+info(
+    title: "platform-ws"
+    author: "xm"
+    version: "v1"
+)
+type (
+    WsReq {
+        PlatformType int64 `form:"platformType" validate:"oneof=1,2"`
+    Token string `form:"token"`
+    }
+)
+@server(
+    prefix :platform/ws
+    group: ws
+)
+service platform-api {
+    @doc "美团鲜花websocket"
+    @handler MtflowerWs
+    get /mtflower 
+
+    @doc "饿了么鲜花websocket"
+    @handler ElmflowerWs
+    get /elmflower
+
+    @doc "websocket"
+    @handler Ws
+    get / (WsReq)
+}
+

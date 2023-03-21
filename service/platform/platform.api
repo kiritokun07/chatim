@@ -1,0 +1,11 @@
+syntax = "v1"
+
+info(
+	title: "platform"
+	author: "xm"
+	version: "v1"
+)
+
+import (
+	"api/ws.api" //websocket模块
+)
