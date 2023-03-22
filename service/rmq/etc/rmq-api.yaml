@@ -5,12 +5,13 @@ Port: 8889
 # mq生产者 下行消息
 SendMq:
   Addr:
-    - localhost:9876
+    - localhost:4876
+  Group: mtflower-send-group
   Topic: mtflower-im-send
 
 # mq消费者 上行消息
 ReadMq:
   Addr:
-    - localhost:9876
+    - localhost:4876
   Group: mtflower-read-group
   Topic: mtflower-im-read

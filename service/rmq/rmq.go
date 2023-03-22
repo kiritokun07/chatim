@@ -8,6 +8,7 @@ import (
 	"chatim/service/rmq/internal/handler"
 	"chatim/service/rmq/internal/svc"
 
+	"github.com/apache/rocketmq-client-go/v2/rlog"
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/rest"
@@ -25,6 +26,7 @@ func main() {
 	defer server.Stop()
 
 	logx.DisableStat()
+	rlog.SetLogLevel("error")
 	ctx := svc.NewServiceContext(c)
 	handler.RegisterHandlers(server, ctx)
 
