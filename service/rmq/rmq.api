@@ -37,5 +37,5 @@ type (
 service rmq-api {
 	@doc "饿百鲜花下行回调消息接口"
 	@handler EbflowerCallback
-	get /ebflower (EbMsg)
+	post /ebflower (EbMsg)
 }

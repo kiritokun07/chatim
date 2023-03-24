@@ -63,6 +63,16 @@ func (p *Producer) Push(ctx context.Context, v []byte) error {
 	return err
 }
 
+func (p *Producer) PushByTopic(ctx context.Context, topic string, v []byte) error {
+	msg := &primitive.Message{
+		Topic: topic,
+		Body:  v,
+	}
+	msg.WithTag(p.Tag)
+	_, err := p.producer.SendSync(ctx, msg)
+	return err
+}
+
 type SubFunc func(context.Context, ...*primitive.MessageExt) (consumer.ConsumeResult, error)
 
 func NewConsumer(conf ConsumerConf) {

@@ -6,6 +6,7 @@ import (
 	"chatim/service/rmq/internal/svc"
 	"chatim/service/rmq/internal/types"
 
+	"github.com/zeromicro/go-zero/core/jsonx"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -24,7 +25,11 @@ func NewEbflowerCallbackLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 }
 
 func (l *EbflowerCallbackLogic) EbflowerCallback(req *types.EbMsg) error {
-	// todo: add your logic here and delete this line
-
+	message, err := jsonx.Marshal(req)
+	if err != nil {
+		return err
+	}
+	_ = l.svcCtx.Producer.PushByTopic(context.TODO(), l.svcCtx.Config.SendTopic.EbflowerTopic, message)
+	//TODO 返回给平台的消息体
 	return nil
 }

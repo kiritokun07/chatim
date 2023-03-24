@@ -16,16 +16,18 @@ type (
 	MtflowerWs struct {
 		conn     *websocket.Conn
 		lock     sync.Mutex
-		producer *mq.Producer
 		wsUrl    string
+		topic    string
+		producer *mq.Producer
 	}
 )
 
-func NewMtflowerWs(wsUrl string, producer *mq.Producer) (*MtflowerWs, error) {
+func NewMtflowerWs(wsUrl, topic string, producer *mq.Producer) (*MtflowerWs, error) {
 	ws := &MtflowerWs{
 		lock:     sync.Mutex{},
-		producer: producer,
 		wsUrl:    wsUrl,
+		topic:    topic,
+		producer: producer,
 	}
 	ws.connect()
 	threading.GoSafe(func() {
@@ -78,7 +80,7 @@ func (ws *MtflowerWs) Listen() {
 		case websocket.TextMessage:
 			//TODO 收到美团鲜花平台方消息，解密，发mq 这里要不要转一下格式
 			logx.Info(string(messageData))
-			err := ws.ProduceMsg(context.TODO(), messageData)
+			err := ws.producer.PushByTopic(context.TODO(), ws.topic, messageData)
 			if err != nil {
 				logx.Error(err)
 			}
