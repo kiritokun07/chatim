@@ -27,17 +27,15 @@ type Client struct {
 	Conn  *websocket.Conn
 	Send  chan []byte
 	Read  chan []byte
-	Token string
+	Token string //放客户端的各种信息
 }
-
-//type
 
 func NewClient(hub *Hub, conn *websocket.Conn, token string) *Client {
 	return &Client{
 		Hub:   hub,
 		Conn:  conn,
-		Send:  make(chan []byte, bufSize),
-		Read:  make(chan []byte, bufSize),
+		Send:  make(chan []byte),
+		Read:  make(chan []byte),
 		Token: token,
 	}
 }
@@ -89,7 +87,6 @@ func (c *Client) writePump() {
 		ticker.Stop()
 		_ = c.Conn.Close()
 	}()
-
 	for {
 		select {
 		case message, ok := <-c.Send:

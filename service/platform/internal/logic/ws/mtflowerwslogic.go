@@ -7,8 +7,6 @@ import (
 	"chatim/service/platform/internal/svc"
 
 	"github.com/gorilla/websocket"
-	"github.com/zeromicro/go-zero/core/threading"
-
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -30,11 +28,5 @@ func (l *MtflowerWsLogic) MtflowerWs(conn *websocket.Conn, token string) {
 	println("register ready")
 	client := hub.NewClient(l.svcCtx.WsHub, conn, token)
 	println("register" + client.Token)
-	client.Hub.Register <- client
-	threading.GoSafe(func() {
-		client.ReadPump()
-	})
-	threading.GoSafe(func() {
-		client.WritePump()
-	})
+	client.Run()
 }

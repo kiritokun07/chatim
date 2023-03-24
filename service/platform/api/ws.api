@@ -8,9 +8,10 @@ info(
 type (
     WsReq {
         PlatformType int64 `form:"platformType" validate:"oneof=1,2"`
-    Token string `form:"token"`
+        Token string `form:"token"`
     }
 )
+
 @server(
     prefix :platform/ws
     group: ws
@@ -18,7 +19,7 @@ type (
 service platform-api {
     @doc "美团鲜花websocket"
     @handler MtflowerWs
-    get /mtflower 
+    get /mtflower
 
     @doc "饿了么鲜花websocket"
     @handler ElmflowerWs

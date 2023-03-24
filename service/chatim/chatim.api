@@ -1,8 +1,11 @@
 syntax = "v1"
 
 info(
-    title: "rmq"
-    author: "xm"
-    version: "v1"
+	title: "rmq"
+	author: "xm"
+	version: "v1"
 )
 
+import(
+	"api/ws.api" //websocket模块
+)

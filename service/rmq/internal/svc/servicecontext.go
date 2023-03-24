@@ -1,9 +1,9 @@
 package svc
 
 import (
-	"chatim/mq"
 	"chatim/service/rmq/internal/config"
 	"chatim/service/rmq/internal/ws"
+	"chatim/shared/mq"
 )
 
 type ServiceContext struct {

@@ -5,7 +5,7 @@ import (
 	"sync"
 	"time"
 
-	"chatim/mq"
+	"chatim/shared/mq"
 
 	"github.com/gorilla/websocket"
 	"github.com/zeromicro/go-zero/core/logx"

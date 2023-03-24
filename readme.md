@@ -9,6 +9,7 @@ https://gitee.com/kiritokun/chatim
   
   websocket服务端，不断往客户端发消息，而且会调http接口发消息
 
+  `ws://127.0.0.1:8888/platform/ws/mtflower?token=111&platformType=1`
 - rmq 连接平台ws的客户端，是rocketmq的（下行消息）生产者和（上行消息）消费者
 
   rmq里需要有的
@@ -22,6 +23,8 @@ https://gitee.com/kiritokun/chatim
   在消费者里需要存表
 
 - chatim 连接web前端的服务端，是rocketmq的（上行消息）生产者和（下行消息）消费者
+
+  `ws://localhost:8890/chatim/ws?token=123`
 
 清单
 
@@ -38,4 +41,9 @@ goctl api go -api .\service\platform\platform.api -dir .\service\platform
 rmq
 ```shell
 goctl api go -api .\service\rmq\rmq.api -dir .\service\rmq
+```
+
+chatim
+```shell
+goctl api go -api .\service\chatim\chatim.api -dir .\service\chatim
 ```

@@ -4,8 +4,8 @@ type (
 	Hub struct {
 		Clients    map[string]*Client // 在线运营
 		Register   chan *Client       // 注册消息
-		Unregister chan *Client       // 注册消息
-		Broadcast  chan []byte        //发消息
+		UnRegister chan *Client       // 注销消息
+		Broadcast  chan []byte        // 发消息
 	}
 )
 
@@ -13,7 +13,7 @@ func NewHub() *Hub {
 	return &Hub{
 		Clients:    make(map[string]*Client),
 		Register:   make(chan *Client),
-		Unregister: make(chan *Client),
+		UnRegister: make(chan *Client),
 		Broadcast:  make(chan []byte),
 		//Operators:  make(map[int64]*Client),
 		//Services:   make(map[int64]*Client),
@@ -26,7 +26,7 @@ func (h *Hub) Run() {
 		case client := <-h.Register:
 			h.Clients[client.Token] = client
 			println(client.Token + "上线了")
-		case client := <-h.Unregister:
+		case client := <-h.UnRegister:
 			if _, ok := h.Clients[client.Token]; ok {
 				delete(h.Clients, client.Token)
 				close(client.Send)

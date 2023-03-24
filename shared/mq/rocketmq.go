@@ -12,8 +12,8 @@ import (
 type (
 	Producer struct {
 		producer rocketmq.Producer
-		Topic    string
-		Tag      string
+		//Topic    string
+		Tag string
 	}
 
 	ProducerConf struct {
@@ -48,20 +48,20 @@ func NewProducer(conf ProducerConf) (*Producer, error) {
 
 	return &Producer{
 		producer: p,
-		Topic:    conf.Topic,
-		Tag:      conf.Tag,
+		//Topic:    conf.Topic,
+		Tag: conf.Tag,
 	}, err
 }
 
-func (p *Producer) Push(ctx context.Context, v []byte) error {
-	msg := &primitive.Message{
-		Topic: p.Topic,
-		Body:  v,
-	}
-	msg.WithTag(p.Tag)
-	_, err := p.producer.SendSync(ctx, msg)
-	return err
-}
+//func (p *Producer) Push(ctx context.Context, v []byte) error {
+//	msg := &primitive.Message{
+//		Topic: p.Topic,
+//		Body:  v,
+//	}
+//	msg.WithTag(p.Tag)
+//	_, err := p.producer.SendSync(ctx, msg)
+//	return err
+//}
 
 func (p *Producer) PushByTopic(ctx context.Context, topic string, v []byte) error {
 	msg := &primitive.Message{
@@ -80,6 +80,6 @@ func NewConsumer(conf ConsumerConf) {
 		consumer.WithNameServer(conf.Addr), // 接入点地址
 		consumer.WithGroupName(conf.Group), // 分组名称
 	)
-	c.Subscribe(conf.Topic, consumer.MessageSelector{Expression: conf.Tag}, conf.Fn)
-	c.Start()
+	_ = c.Subscribe(conf.Topic, consumer.MessageSelector{Expression: conf.Tag}, conf.Fn)
+	_ = c.Start()
 }

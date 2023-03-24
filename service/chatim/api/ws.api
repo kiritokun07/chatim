@@ -1,0 +1,23 @@
+syntax = "v1"
+
+info(
+    title: "rmq-ws"
+    author: "xm"
+    version: "v1"
+)
+
+type (
+    WsReq {
+        Token string `form:"token"`
+    }
+)
+
+@server(
+    prefix :chatim/ws
+    group : ws
+)
+service chatim-api {
+    @doc "寻梦websocket"
+    @handler Ws
+    get / (WsReq)
+}
