@@ -1,6 +1,7 @@
 package ws
 
 import (
+	"context"
 	"sync"
 	"time"
 
@@ -76,9 +77,13 @@ func (ws *MtflowerWs) Listen() {
 		switch messageType {
 		case websocket.TextMessage:
 			//TODO 收到美团鲜花平台方消息，解密，发mq 这里要不要转一下格式
-			logx.Info(messageData)
+			logx.Info(string(messageData))
+			err := ws.ProduceMsg(context.TODO(), messageData)
+			if err != nil {
+				logx.Error(err)
+			}
 		case websocket.BinaryMessage:
-			logx.Info(messageData)
+			logx.Info(string(messageData))
 		case websocket.CloseMessage:
 			logx.Error("mtflower ws closed")
 			ws.connect()
