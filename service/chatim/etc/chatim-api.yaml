@@ -1,3 +1,21 @@
 Name: chatim-api
 Host: 0.0.0.0
 Port: 8890
+
+RocketMq:
+  Addr:
+    - 127.0.0.1:9876
+
+# mq生产者 上行消息
+ProducerInfo:
+  ProducerGroup: chatim-chatim-up-p-group
+  # 上行消息topic
+  MtflowerTopic: chatim-mtflower-up-topic
+  EbflowerTopic: chatim-ebflower-up-topic
+
+# mq消费者 下行消息
+ConsumerInfo:
+  MtflowerGroup: chatim-mtflower-down-c-group
+  MtflowerTopic: chatim-mtflower-down-topic
+  EbflowerGroup: chatim-ebflower-down-c-group
+  EbflowerTopic: chatim-ebflower-down-topic

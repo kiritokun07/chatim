@@ -16,9 +16,8 @@ func NewServiceContext(c config.Config) *ServiceContext {
 
 	//总共只有一个producer
 	producer, err := mq.NewProducer(mq.ProducerConf{
-		Addr:  c.SendMq.Addr,
-		Group: c.SendMq.Group,
-		//Topic: c.SendMq.Topic,
+		Addr:  c.RocketMq.Addr,
+		Group: c.ProducerInfo.ProducerGroup,
 	})
 	if err != nil {
 		panic(err)
@@ -26,7 +25,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 
 	wsUrl := "ws://127.0.0.1:8888/platform/ws/mtflower?token=111&platformType=1"
 	//wsUrl := ws.GetMtflowerWsUrl("4833", "wo5328fLL-MKvXYeqJzQmvRqMx7zXKW-Jfh6NVvDBjb2XU-wo")
-	mtflowerWs, err := ws.NewMtflowerWs(wsUrl, c.SendTopic.MtflowerTopic, producer)
+	mtflowerWs, err := ws.NewMtflowerWs(wsUrl, c.ProducerInfo.MtflowerTopic, producer)
 	if err != nil {
 		panic(err)
 	}

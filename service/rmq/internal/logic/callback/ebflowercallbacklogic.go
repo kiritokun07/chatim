@@ -29,7 +29,7 @@ func (l *EbflowerCallbackLogic) EbflowerCallback(req *types.EbMsg) error {
 	if err != nil {
 		return err
 	}
-	_ = l.svcCtx.Producer.PushByTopic(context.TODO(), l.svcCtx.Config.SendTopic.EbflowerTopic, message)
+	_ = l.svcCtx.Producer.PushByTopic(context.TODO(), l.svcCtx.Config.ProducerInfo.EbflowerTopic, message)
 	//TODO 返回给平台的消息体
 	return nil
 }

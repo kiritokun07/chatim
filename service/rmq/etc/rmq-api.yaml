@@ -2,21 +2,20 @@ Name: rmq-api
 Host: 0.0.0.0
 Port: 8889
 
-# 下行消息topic 一个平台一个topic
-SendTopic:
-  MtflowerTopic: mtflower-im-send
-  EbflowerTopic: ebflower-im-send
+RocketMq:
+  Addr:
+    - 127.0.0.1:9876
 
 # mq生产者 下行消息
-SendMq:
-  Addr:
-    - 127.0.0.1:9876
-  Group: mtflower-send-group
-#  Topic: mtflower-im-send
+ProducerInfo:
+  ProducerGroup: chatim-rmq-down-p-group
+  # 下行消息topic 一个平台一个topic
+  MtflowerTopic: chatim-mtflower-down-topic
+  EbflowerTopic: chatim-ebflower-down-topic
 
 # mq消费者 上行消息
-ReadMq:
-  Addr:
-    - 127.0.0.1:9876
-  Group: mtflower-read-group
-  Topic: mtflower-im-read
+ConsumerInfo:
+  MtflowerGroup: chatim-mtflower-up-c-group
+  MtflowerTopic: chatim-mtflower-up-topic
+  EbflowerGroup: chatim-ebflower-up-c-group
+  EbflowerTopic: chatim-ebflower-up-topic

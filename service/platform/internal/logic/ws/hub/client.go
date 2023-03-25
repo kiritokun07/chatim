@@ -51,9 +51,6 @@ func (c *Client) Run() {
 	threading.GoSafe(func() {
 		c.writePump()
 	})
-	threading.GoSafe(func() {
-		c.handleRead()
-	})
 }
 
 func (c *Client) register() {
@@ -106,19 +103,4 @@ func (c *Client) writePump() {
 			}
 		}
 	}
-}
-
-func (c *Client) handleRead() {
-	for {
-		select {
-		case message := <-c.Read:
-			threading.GoSafe(func() {
-				c.handleMsg(message)
-			})
-		}
-	}
-}
-
-func (c *Client) handleMsg(message []byte) {
-	logx.Infov(string(message))
 }

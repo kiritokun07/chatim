@@ -1,12 +1,15 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"fmt"
 
 	"chatim/service/chatim/internal/config"
 	"chatim/service/chatim/internal/handler"
+	"chatim/service/chatim/internal/logic/ws/consumer"
 	"chatim/service/chatim/internal/svc"
+	"chatim/shared/mq"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/logx"
@@ -30,6 +33,17 @@ func main() {
 	threading.GoSafe(func() {
 		ctx.WsHub.Run()
 	})
+
+	consumerLogic := consumer.NewConsumerLogic(context.TODO(), ctx)
+	//美团鲜花下行消息消费者
+	mq.NewConsumer(mq.ConsumerConf{
+		Addr:  c.RocketMq.Addr,
+		Group: c.ConsumerInfo.MtflowerGroup,
+		Topic: c.ConsumerInfo.MtflowerTopic,
+		//Tag:   "",
+		Fn: consumerLogic.Consumer(),
+	})
+
 	handler.RegisterHandlers(server, ctx)
 
 	fmt.Printf("Starting server at %s:%d...\n", c.Host, c.Port)

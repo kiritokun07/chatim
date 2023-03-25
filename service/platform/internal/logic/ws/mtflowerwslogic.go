@@ -8,6 +8,7 @@ import (
 
 	"github.com/gorilla/websocket"
 	"github.com/zeromicro/go-zero/core/logx"
+	"github.com/zeromicro/go-zero/core/threading"
 )
 
 type MtflowerWsLogic struct {
@@ -29,4 +30,22 @@ func (l *MtflowerWsLogic) MtflowerWs(conn *websocket.Conn, token string) {
 	client := hub.NewClient(l.svcCtx.WsHub, conn, token)
 	println("register" + client.Token)
 	client.Run()
+	threading.GoSafe(func() {
+		l.handleRead(client)
+	})
+}
+
+func (l *MtflowerWsLogic) handleRead(c *hub.Client) {
+	for {
+		select {
+		case message := <-c.Read:
+			threading.GoSafe(func() {
+				l.handleMsg(message)
+			})
+		}
+	}
+}
+
+func (l *MtflowerWsLogic) handleMsg(message []byte) {
+	logx.Infov(string(message))
 }

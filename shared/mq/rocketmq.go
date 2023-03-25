@@ -30,6 +30,10 @@ type (
 		Tag   string
 		Fn    SubFunc
 	}
+
+	RocketMqConf struct {
+		Addr []string
+	}
 )
 
 func NewProducer(conf ProducerConf) (*Producer, error) {

@@ -29,7 +29,7 @@ https://gitee.com/kiritokun/chatim
 清单
 
 -[x] 1.搭建platform，用于平台向rmq发消息
--[ ] 2.搭建rmq，收到消息后发到rocketmq
+-[x] 2.搭建rmq，收到消息后发到rocketmq
 -[ ] 3.搭建api，从rocketmq读消息
 -[ ] 4.api读到消息后向客户端发送
 
