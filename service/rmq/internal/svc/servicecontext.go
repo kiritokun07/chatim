@@ -8,8 +8,8 @@ import (
 
 type ServiceContext struct {
 	Config     config.Config
-	MtflowerWs *ws.MtflowerWs
 	Producer   *mq.Producer
+	MtflowerWs *ws.MtflowerWs
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
@@ -33,7 +33,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 	//TODO 一个平台new一个consumer 一个consumer监听多个源的消息，每个源一个tag
 	return &ServiceContext{
 		Config:     c,
-		MtflowerWs: mtflowerWs,
 		Producer:   producer,
+		MtflowerWs: mtflowerWs,
 	}
 }

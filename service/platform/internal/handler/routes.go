@@ -4,6 +4,7 @@ package handler
 import (
 	"net/http"
 
+	message "chatim/service/platform/internal/handler/message"
 	ws "chatim/service/platform/internal/handler/ws"
 	"chatim/service/platform/internal/svc"
 
@@ -30,5 +31,16 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			},
 		},
 		rest.WithPrefix("/platform/ws"),
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/",
+				Handler: message.EbflowerMessageHandler(serverCtx),
+			},
+		},
+		rest.WithPrefix("/platform/message"),
 	)
 }

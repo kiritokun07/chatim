@@ -5,3 +5,39 @@ type WsReq struct {
 	PlatformType int64  `form:"platformType" validate:"oneof=1,2"`
 	Token        string `form:"token"`
 }
+
+type EbMsgReq struct {
+	PlatformShopId string           `json:"platformShopId"` //平台门店ID
+	BizType        string           `json:"bizType"`        //业务类型，IM消息。默认值：IM
+	SubBizType     string           `json:"subBizType"`     //子业务类型，发送消息。默认值：SEND_MESSAGE
+	Payload        *EbMsgReqPayload `json:"payload"`        //回复消息内容体
+}
+
+type EbMsgReqPayload struct {
+	GroupId     string   `json:"groupId"`     //会话ID
+	MsgId       string   `json:"msgId"`       //消息ID
+	ReceiverIds []string `json:"receiverIds"` //接收人列表
+	Content     string   `json:"content"`     //发送内容，格式：JSON EbMsgReqPayloadContent
+	ContentType string   `json:"contentType"` //内容类型，目前只支持文本消息。枚举值： 1-普通文本
+}
+
+type EbMsgReqPayloadContent struct {
+	Text string `json:"text"`
+}
+
+type EbMsgResp struct {
+	Body      *EbMsgRespBody `json:"body"`
+	Cmd       string         `json:"cmd"`
+	Sign      string         `json:"sign"`
+	Source    string         `json:"source"`
+	Ticket    string         `json:"ticket"`
+	Timestamp int            `json:"timestamp"`
+	Traceid   string         `json:"traceid"`
+	Version   int            `json:"version"`
+}
+
+type EbMsgRespBody struct {
+	Errno int    `json:"errno"`
+	Error string `json:"error"`
+	Data  bool   `json:"data"`
+}

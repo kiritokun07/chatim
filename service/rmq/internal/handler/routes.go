@@ -19,6 +19,6 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 				Handler: callback.EbflowerCallbackHandler(serverCtx),
 			},
 		},
-		rest.WithPrefix("/rmq"),
+		rest.WithPrefix("/chatim-rmq"),
 	)
 }

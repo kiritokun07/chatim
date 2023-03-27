@@ -8,4 +8,5 @@ info(
 
 import (
 	"api/ws.api" //websocket模块
+	"api/message.api" //平台消息模块
 )

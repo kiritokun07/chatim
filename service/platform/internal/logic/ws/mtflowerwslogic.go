@@ -47,5 +47,5 @@ func (l *MtflowerWsLogic) handleRead(c *hub.Client) {
 }
 
 func (l *MtflowerWsLogic) handleMsg(message []byte) {
-	logx.Infov(string(message))
+	logx.Infov("platform mtflower收到消息：" + string(message))
 }
