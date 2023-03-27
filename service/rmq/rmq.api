@@ -8,11 +8,11 @@ info(
 
 type (
 	//饿百用户骑手消息体
-	EbMsg {
-		SubBizType     string      `json:"subBizType"`     //业务子类型，枚举值：SEND_MESSAGE-发送消息
-		BizType        string      `json:"bizType"`        //业务类型，枚举值：IM-消息
+	EbDownMsgReq {
+		SubBizType     string       `json:"subBizType"`     //业务子类型，枚举值：SEND_MESSAGE-发送消息
+		BizType        string       `json:"bizType"`        //业务类型，枚举值：IM-消息
 		Payload        *PayloadItem `json:"payload"`        //业务结构
-		PlatformShopId string      `json:"platformShopId"` //平台门店ID
+		PlatformShopId string       `json:"platformShopId"` //平台门店ID
 	}
 
 	PayloadItem {
@@ -37,5 +37,5 @@ type (
 service rmq-api {
 	@doc "饿百鲜花下行回调消息接口"
 	@handler EbflowerCallback
-	post /ebflower (EbMsg)
+	post /ebflower (EbDownMsgReq)
 }

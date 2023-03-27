@@ -24,7 +24,7 @@ func NewEbflowerCallbackLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 	}
 }
 
-func (l *EbflowerCallbackLogic) EbflowerCallback(req *types.EbMsg) error {
+func (l *EbflowerCallbackLogic) EbflowerCallback(req *types.EbDownMsgReq) error {
 	message, err := jsonx.Marshal(req)
 	if err != nil {
 		return err

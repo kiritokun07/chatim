@@ -29,12 +29,12 @@ func main() {
 	defer server.Stop()
 
 	logx.DisableStat()
-	ctx := svc.NewServiceContext(c)
+	svcCtx := svc.NewServiceContext(c)
 	threading.GoSafe(func() {
-		ctx.WsHub.Run()
+		svcCtx.WsHub.Run()
 	})
 
-	consumerLogic := consumer.NewConsumerLogic(context.TODO(), ctx)
+	consumerLogic := consumer.NewConsumerLogic(context.TODO(), svcCtx)
 	//美团鲜花下行消息消费者
 	mq.NewConsumer(mq.ConsumerConf{
 		Addr:  c.RocketMq.Addr,
@@ -44,7 +44,7 @@ func main() {
 		Fn: consumerLogic.Consumer(),
 	})
 
-	handler.RegisterHandlers(server, ctx)
+	handler.RegisterHandlers(server, svcCtx)
 
 	fmt.Printf("Starting server at %s:%d...\n", c.Host, c.Port)
 	server.Start()

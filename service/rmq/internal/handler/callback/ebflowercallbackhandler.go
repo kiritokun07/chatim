@@ -6,24 +6,21 @@ import (
 	"chatim/service/rmq/internal/logic/callback"
 	"chatim/service/rmq/internal/svc"
 	"chatim/service/rmq/internal/types"
-
-	"github.com/zeromicro/go-zero/rest/httpx"
+	"chatim/shared/errorx"
+	"chatim/shared/httpreq"
+	"chatim/shared/httpresp"
 )
 
 func EbflowerCallbackHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		var req types.EbMsg
-		if err := httpx.Parse(r, &req); err != nil {
-			httpx.ErrorCtx(r.Context(), w, err)
+		var req types.EbDownMsgReq
+		if err := httpreq.Parse(r, &req); err != nil {
+			httpresp.HttpErr(w, r, errorx.NewStatCodeError(http.StatusNotAcceptable, 2, err.Error()))
 			return
 		}
 
 		l := callback.NewEbflowerCallbackLogic(r.Context(), svcCtx)
 		err := l.EbflowerCallback(&req)
-		if err != nil {
-			httpx.ErrorCtx(r.Context(), w, err)
-		} else {
-			httpx.Ok(w)
-		}
+		httpresp.Http(w, r, nil, err)
 	}
 }

@@ -7,6 +7,7 @@ import (
 	"chatim/service/rmq/internal/config"
 	"chatim/service/rmq/internal/handler"
 	"chatim/service/rmq/internal/svc"
+	"chatim/shared/mq"
 
 	"github.com/apache/rocketmq-client-go/v2/rlog"
 	"github.com/zeromicro/go-zero/core/conf"
@@ -27,8 +28,15 @@ func main() {
 
 	logx.DisableStat()
 	rlog.SetLogLevel("error")
-	ctx := svc.NewServiceContext(c)
-	handler.RegisterHandlers(server, ctx)
+	svcCtx := svc.NewServiceContext(c)
+	//美团鲜花上行消息消费者
+	mq.NewConsumer(mq.ConsumerConf{
+		Addr:  c.RocketMq.Addr,
+		Group: c.ConsumerInfo.MtflowerGroup,
+		Topic: c.ConsumerInfo.MtflowerTopic,
+		Fn:    svcCtx.MtflowerWs.ConsumeMsg(),
+	})
+	handler.RegisterHandlers(server, svcCtx)
 
 	fmt.Printf("Starting server at %s:%d...\n", c.Host, c.Port)
 	server.Start()

@@ -24,10 +24,10 @@ func NewEbflowerMessageLogic(ctx context.Context, svcCtx *svc.ServiceContext) *E
 	}
 }
 
-func (l *EbflowerMessageLogic) EbflowerMessage(req *types.EbMsgReq) (resp *types.EbMsgResp, err error) {
+func (l *EbflowerMessageLogic) EbflowerMessage(req *types.EbUpMsgReq) (resp *types.EbUpMsgResp, err error) {
 	ebMsg, err := jsonx.MarshalToString(req)
 	logx.Info("platform ebflower收到消息：" + ebMsg)
-	return &types.EbMsgResp{
+	return &types.EbUpMsgResp{
 		Body: &types.EbMsgRespBody{
 			Errno: 0,
 			Error: "success",

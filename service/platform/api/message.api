@@ -7,7 +7,7 @@ info(
 )
 
 type (
-    EbMsgReq {
+    EbUpMsgReq {
         PlatformShopId string `json:"platformShopId"`  //平台门店ID
         BizType string `json:"bizType"`                //业务类型，IM消息。默认值：IM
         SubBizType string `json:"subBizType"`          //子业务类型，发送消息。默认值：SEND_MESSAGE
@@ -27,7 +27,7 @@ type (
     }
 
 
-    EbMsgResp {
+    EbUpMsgResp {
         Body *EbMsgRespBody `json:"body"`
         Cmd string `json:"cmd"`
         Sign string `json:"sign"`
@@ -52,5 +52,5 @@ type (
 service platform-api {
     @doc "饿百鲜花-商家IM消息发送"
     @handler EbflowerMessage
-    post / (EbMsgReq) returns (EbMsgResp)
+    post / (EbUpMsgReq) returns (EbUpMsgResp)
 }

@@ -35,15 +35,15 @@ https://gitee.com/kiritokun/chatim
 
 platform
 ```shell
-goctl api go -api .\service\platform\platform.api -dir .\service\platform
+goctl api go -api .\service\platform\platform.api -dir .\service\platform -home ./goctl/template
 ```
 
 rmq
 ```shell
-goctl api go -api .\service\rmq\rmq.api -dir .\service\rmq
+goctl api go -api .\service\rmq\rmq.api -dir .\service\rmq -home ./goctl/template
 ```
 
 chatim
 ```shell
-goctl api go -api .\service\chatim\chatim.api -dir .\service\chatim
+goctl api go -api .\service\chatim\chatim.api -dir .\service\chatim -home ./goctl/template
 ```

@@ -27,9 +27,9 @@ func main() {
 	defer server.Stop()
 
 	logx.DisableStat()
-	ctx := svc.NewServiceContext(c)
+	svcCtx := svc.NewServiceContext(c)
 	threading.GoSafe(func() {
-		ctx.WsHub.Run()
+		svcCtx.WsHub.Run()
 	})
 	threading.GoSafe(func() {
 		ticker := time.NewTicker(3 * time.Second)
@@ -38,12 +38,12 @@ func main() {
 			select {
 			case <-ticker.C:
 				println("<-ticker")
-				ctx.WsHub.Broadcast <- []byte("八嘎呀路")
+				svcCtx.WsHub.Broadcast <- []byte("八嘎呀路")
 			}
 		}
 	})
 	println("handler")
-	handler.RegisterHandlers(server, ctx)
+	handler.RegisterHandlers(server, svcCtx)
 
 	fmt.Printf("Starting server at %s:%d...\n", c.Host, c.Port)
 	server.Start()

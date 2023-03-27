@@ -6,7 +6,7 @@ type WsReq struct {
 	Token        string `form:"token"`
 }
 
-type EbMsgReq struct {
+type EbUpMsgReq struct {
 	PlatformShopId string           `json:"platformShopId"` //平台门店ID
 	BizType        string           `json:"bizType"`        //业务类型，IM消息。默认值：IM
 	SubBizType     string           `json:"subBizType"`     //子业务类型，发送消息。默认值：SEND_MESSAGE
@@ -22,10 +22,10 @@ type EbMsgReqPayload struct {
 }
 
 type EbMsgReqPayloadContent struct {
-	Text string `json:"text"`
+	Text string `json:"text"` //消息文本
 }
 
-type EbMsgResp struct {
+type EbUpMsgResp struct {
 	Body      *EbMsgRespBody `json:"body"`
 	Cmd       string         `json:"cmd"`
 	Sign      string         `json:"sign"`
