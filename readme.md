@@ -47,3 +47,5 @@ chatim
 ```shell
 goctl api go -api .\service\chatim\chatim.api -dir .\service\chatim -home ./goctl/template
 ```
+
+改进：ws client正确退出
